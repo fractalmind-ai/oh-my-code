@@ -26,10 +26,13 @@ Instead, we enforce a high-quality, repeatable engineering workflow via:
 - Ensure quality gates are run and reported.
 
 ## Roles (Recommended)
-- **Orchestrator**: breaks the task into parallel sub-tasks, collects results, and produces final synthesis.
-- **Dev**: implements changes.
-- **QA**: validates via tests/checks and reviews diffs.
-- **Librarian/Research** (optional): fast repo exploration and documentation lookup.
+- **sisyphus**: the orchestrator (recommended model: anthropic/claude-opus-4-5)
+- **oracle**: architecture, code review, strategy (recommended model: openai/gpt-5.2)
+- **librarian**: multi-repo analysis, doc lookup (recommended model: opencode/glm-4.7-free)
+- **explore**: fast codebase exploration (recommended model: grok/gemini/haiku)
+- **frontend-ui-ux-engineer**: UI/UX specialist (recommended model: google/gemini-3-pro-preview)
+- **document-writer**: technical writing (recommended model: google/gemini-3-flash)
+- **multimodal-looker**: PDF/image analysis (recommended model: google/gemini-3-flash)
 
 ## Multi-Agent Protocol (agent-manager)
 Use `agent-manager` to run workers in separate tmux sessions, then feed tasks in parallel.
@@ -44,19 +47,19 @@ If you are using a different CLI (e.g. `droid` or `claude`), update `agents/EMP_
 python3 .claude/skills/agent-manager/scripts/main.py list
 
 # start if needed
-python3 .claude/skills/agent-manager/scripts/main.py start dev
-python3 .claude/skills/agent-manager/scripts/main.py start qa
+python3 .claude/skills/agent-manager/scripts/main.py start sisyphus
+python3 .claude/skills/agent-manager/scripts/main.py start oracle
 
 # assign tasks (stdin)
-python3 .claude/skills/agent-manager/scripts/main.py assign dev <<'EOF'
+python3 .claude/skills/agent-manager/scripts/main.py assign sisyphus <<'EOF'
 <task>
 EOF
 
 # monitor
-python3 .claude/skills/agent-manager/scripts/main.py monitor dev --follow
+python3 .claude/skills/agent-manager/scripts/main.py monitor sisyphus --follow
 
 # stop
-python3 .claude/skills/agent-manager/scripts/main.py stop dev
+python3 .claude/skills/agent-manager/scripts/main.py stop sisyphus
 ```
 
 ## Task Decomposition Template
