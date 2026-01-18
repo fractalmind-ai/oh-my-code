@@ -12,7 +12,11 @@ It vendors `agent-manager` under `.claude/skills/agent-manager`, so a plain `git
 ## Quickstart
 
 If your agent CLI supports `.claude/commands`, use:
-- `/quickstart`
+- `/oh-my-code/quickstart`
+
+To enable/disable the 15-minute scheduled work cycle:
+- `/oh-my-code/bootstrap`
+- `/oh-my-code/shutdown`
 
 Or run directly from the repo root:
 

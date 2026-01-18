@@ -6,7 +6,7 @@ code lives under <repo>/.agent/skills.
 
 Repo root resolution priority:
 1) $REPO_ROOT (if set)
-2) git (superproject if in submodule, else toplevel)
+2) git (toplevel)
 3) walk up from cwd looking for .agent/ and agents/
 4) fall back to cwd
 """
@@ -47,14 +47,14 @@ def find_repo_root(start: Path) -> Path:
 
     start_dir = start if start.is_dir() else start.parent
 
-    # Prefer the superproject root if we're inside a git submodule.
-    superproject = _run_git(start_dir, ["rev-parse", "--show-superproject-working-tree"])
-    if superproject:
-        return Path(superproject)
-
     toplevel = _run_git(start_dir, ["rev-parse", "--show-toplevel"])
     if toplevel:
         return Path(toplevel)
+
+    # If we're inside a git submodule but cannot resolve its toplevel, fall back to the superproject.
+    superproject = _run_git(start_dir, ["rev-parse", "--show-superproject-working-tree"])
+    if superproject:
+        return Path(superproject)
 
     # Fallback: detect a repo-like layout without requiring git.
     for candidate in _walk_parents(start_dir):

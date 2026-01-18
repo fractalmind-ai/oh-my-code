@@ -3,3 +3,5 @@
 # agent-manager runtime state
 .claude/state/
 .crontab_logs/
+
+__pycache__
