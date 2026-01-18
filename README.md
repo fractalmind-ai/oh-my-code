@@ -15,7 +15,7 @@ If your agent CLI supports `.claude/commands`, use:
 - `/oh-my-code/quickstart`
 
 To enable/disable the 15-minute scheduled work cycle:
-- `/oh-my-code/bootstrap`
+- `/oh-my-code/startup`
 - `/oh-my-code/shutdown`
 
 Or run directly from the repo root:
